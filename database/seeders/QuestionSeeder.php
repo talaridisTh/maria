@@ -1,7 +1,5 @@
 <?php
-
 namespace Database\Seeders;
-
 use App\Models\Question;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +12,7 @@ class QuestionSeeder extends Seeder
                 'question' => 'Ποιον μήνα πήραμε τον γάτο;',
                 'content' => '🐱',
                 'type' => 'multiple_choice',
-                'options' => ['Ιανουάριο', 'Μάρτιο', 'Απρίλιο', 'Οκτωβρίο'],
+                'options' => ['Ιανουάριο', 'Μάρτιο', 'Απρίλιο', 'Οκτώβριο'],
                 'correct_answer' => 2,
                 'extra_text' => 'Η καλύτερη παρέα που μπορούσαμε να έχουμε! 💕',
                 'coin_reward' => 10
@@ -22,23 +20,47 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Πού πήγαμε στο δεύτερο μας ταξίδι;',
                 'content' => '✈️',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 15
             ],
             [
                 'question' => 'Πού πήγαμε στην Ελλάδα στο πρώτο ταξίδι μας;',
-                'question' => 'Πού πήγαμε στην Ελλάδα στο πρώτο ταξίδι μας;',
                 'content' => '🇬🇷',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 15
             ],
             [
                 'question' => 'Ποια ταινία είδαμε στο πρώτο μας ραντεβού;',
                 'content' => '🎬',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 20
             ],
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που σου πήρα;',
                 'content' => '🎁',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 20
             ],
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που μου πήρες;',
                 'content' => '💝',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 20
             ],
             [
                 'question' => 'Τι ήθελα περισσότερο στο κάτω σπίτι και δεν μπήκε;',
@@ -62,28 +84,44 @@ class QuestionSeeder extends Seeder
                 'question' => 'Ποια ήταν η πρώτη σειρά που είδαμε μαζί;',
                 'content' => '📺',
                 'type' => 'multiple_choice',
-                'options' => ['Walking Dead', 'Mr. Robot', 'Better Call Saul', 'Prison Break'],
+                'options' => ['Walking Dead', 'Mr. Robot', 'Better Call Saul', 'Breaking Bad'],
                 'correct_answer' => 2,
-                'extra_text' => 'Από εκείνη τη στιγμή, κολλήσαμε στις μαραθωνο-βραδιές μας 🍿',
+                'extra_text' => 'Από εκείνη τη στιγμή, κολλήσαμε στις μαραθώνιο-βραδιές μας 🍿',
                 'coin_reward' => 15
             ],
             [
                 'question' => 'Ποιο είναι το αγαπημένο μου ποτό;',
                 'content' => '🥂',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 10
             ],
             [
                 'question' => 'Ποια είναι η ταινία που βλέπουμε ξανά και ξανά;',
                 'content' => '🎞️',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 15
             ],
             [
                 'question' => 'Ποιο είναι το μέρος που έχουμε πει ότι πάντα θέλουμε να ξαναπάμε;',
                 'content' => '✨',
+                'type' => 'text',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 25
             ],
         ];
+
         shuffle($questions);
 
         foreach ($questions as $index => $questionData) {
-            $questionData['day_number'] = $index + 1; // Αυτόματο day_number
+            $questionData['day_number'] = $index + 1;
             Question::create($questionData);
         }
     }
