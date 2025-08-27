@@ -25,7 +25,42 @@ export default function GameStyles() {
         color: #a16207;
         margin-bottom: 1rem;
       }
-      
+
+      .header-badges {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0.9rem;
+        border-radius: 9999px;
+        font-weight: 800;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+        border: 1px solid rgba(255,255,255,0.25);
+      }
+
+      .badge.unlocked {
+        background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        color: #052e1a;
+      }
+
+      .badge.locked {
+        background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+        color: #374151;
+        opacity: 0.9;
+      }
+
+      .badge.unlocked:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+      }
+
       .header-buttons {
         display: flex;
         justify-content: center;

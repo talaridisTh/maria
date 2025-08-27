@@ -38,6 +38,8 @@ export default function GameIndex({ gameData, user, debugMode, selectedQuestion:
   const [showingAnswer, setShowingAnswer] = useState(showAnswer || false)
   const [showNewsModal, setShowNewsModal] = useState(initialShowNewsModal || false)
 
+  const unlockedDay3 = gameData.some(d => d.day_number === 3 && d.is_unlocked)
+
   useEffect(() => {
     if (initialQuestion) {
       setSelectedQuestion(initialQuestion)
@@ -123,6 +125,11 @@ export default function GameIndex({ gameData, user, debugMode, selectedQuestion:
           >
             Καθημερινά Νέα 📰
           </button>
+        </div>
+        <div className="header-badges">
+          <span className={`badge ${unlockedDay3 ? 'unlocked' : 'locked'}`}>
+            {unlockedDay3 ? '🎯 Αποστολη Ημέρας' : '🔒 Αποστολές Ημέρας • Ανοίγει την 3η μέρα'}
+          </span>
         </div>
         <div className="coming-soon-notice">
           💰 Η εξαργύρωση coin έρχεται σύντομα ✨

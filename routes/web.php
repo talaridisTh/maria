@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\GameController;
 use App\Http\Controllers\DailyNewsController;
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', [GameController::class, 'index'])->name('home');
 Route::post('/unlock', [GameController::class, 'unlockDay'])->name('game.unlock');

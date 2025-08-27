@@ -18,14 +18,14 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
-        
+
         Schema::create('daily_news_reads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('daily_news_id')->constrained()->onDelete('cascade');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
-            
+
             $table->unique(['user_id', 'daily_news_id']);
         });
     }

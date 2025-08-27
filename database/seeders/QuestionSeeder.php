@@ -1,5 +1,7 @@
 <?php
+
 namespace Database\Seeders;
+
 use App\Models\Question;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +15,9 @@ class QuestionSeeder extends Seeder
                 'content' => '🐱',
                 'type' => 'multiple_choice',
                 'options' => ['Ιανουάριο', 'Μάρτιο', 'Απρίλιο', 'Οκτώβριο'],
-                'correct_answer' => 2,
+                'correct_answer' => 4,
                 'extra_text' => 'Η καλύτερη παρέα που μπορούσαμε να έχουμε! 💕',
-                'coin_reward' => 10
+                'coin_reward' => 10,
             ],
             [
                 'question' => 'Πού πήγαμε στο δεύτερο μας ταξίδι;',
@@ -24,7 +26,7 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 15
+                'coin_reward' => 15,
             ],
             [
                 'question' => 'Πού πήγαμε στην Ελλάδα στο πρώτο ταξίδι μας;',
@@ -33,7 +35,7 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 15
+                'coin_reward' => 15,
             ],
             [
                 'question' => 'Ποια ταινία είδαμε στο πρώτο μας ραντεβού;',
@@ -42,7 +44,7 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 20
+                'coin_reward' => 20,
             ],
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που σου πήρα;',
@@ -51,7 +53,7 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 20
+                'coin_reward' => 20,
             ],
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που μου πήρες;',
@@ -60,34 +62,34 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 20
+                'coin_reward' => 20,
             ],
             [
                 'question' => 'Τι ήθελα περισσότερο στο κάτω σπίτι και δεν μπήκε;',
                 'content' => '🏡',
                 'type' => 'multiple_choice',
                 'options' => ['Ενυδρείο', 'Ψησταριά', 'Γάτα', 'Μεγάλο δέντρο'],
-                'correct_answer' => 0,
+                'correct_answer' => 1,
                 'extra_text' => 'Πάντα ήθελα ένα ενυδρείο 🐠',
-                'coin_reward' => 10
+                'coin_reward' => 10,
             ],
             [
                 'question' => 'Τι ήθελα περισσότερο στο πάνω σπίτι και δεν μπήκε;',
                 'content' => '🏠',
                 'type' => 'multiple_choice',
                 'options' => ['Ενυδρείο', 'Ψησταριά', 'Σκύλο', 'Μεγάλο δέντρο'],
-                'correct_answer' => 3,
+                'correct_answer' => 4,
                 'extra_text' => 'Θα είχαμε τη σκιά μας έξω 🌳',
-                'coin_reward' => 10
+                'coin_reward' => 10,
             ],
             [
                 'question' => 'Ποια ήταν η πρώτη σειρά που είδαμε μαζί;',
                 'content' => '📺',
                 'type' => 'multiple_choice',
                 'options' => ['Walking Dead', 'Mr. Robot', 'Better Call Saul', 'Breaking Bad'],
-                'correct_answer' => 2,
+                'correct_answer' => 3,
                 'extra_text' => 'Από εκείνη τη στιγμή, κολλήσαμε στις μαραθώνιο-βραδιές μας 🍿',
-                'coin_reward' => 15
+                'coin_reward' => 15,
             ],
             [
                 'question' => 'Ποιο είναι το αγαπημένο μου ποτό;',
@@ -96,16 +98,16 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 10
+                'coin_reward' => 10,
             ],
             [
-                'question' => 'Ποια είναι η ταινία που βλέπουμε ξανά και ξανά;',
+                'question' => 'Ποια είναι η ταινία που βλέπουμε καθε Χριστουγενα;',
                 'content' => '🎞️',
                 'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 15
+                'coin_reward' => 15,
             ],
             [
                 'question' => 'Ποιο είναι το μέρος που έχουμε πει ότι πάντα θέλουμε να ξαναπάμε;',
@@ -114,7 +116,26 @@ class QuestionSeeder extends Seeder
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
-                'coin_reward' => 25
+                'coin_reward' => 25,
+            ],
+            [
+                'question' => 'Πες μου ολες τις δουλειές που εχω κανει',
+                'content' => '👩',
+                'type' => 'message',
+                'options' => null,
+                'correct_answer' => null,
+                'extra_text' => null,
+                'coin_reward' => 25,
+            ],
+            ['question' => 'Ποιο ειναι το αγαπημενο μου φαγητο;', 'content' => '🍔', 'type' => 'message', 'options' => null, 'correct_answer' => null, 'extra_text' => null, 'coin_reward' => 25],
+            [
+                'question' => 'Τι μαρκα Κινητο ειχα οταν με γνωρισες',
+                'content' => '📱',
+                'type' => 'multiple_choice',
+                'options' => ['Xiaomi', 'Samsung', 'Lenovo', 'OnePlus'],
+                'correct_answer' => 3,
+                'extra_text' => '',
+                'coin_reward' => 25,
             ],
         ];
 

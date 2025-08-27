@@ -46,7 +46,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    
+
     public function dailyNewsReads(): BelongsToMany
     {
         return $this->belongsToMany(DailyNews::class, 'daily_news_reads')

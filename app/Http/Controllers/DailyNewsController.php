@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DailyNews;
-use App\Models\User;
-use App\Models\Question;
 use App\Models\GameProgress;
-use Carbon\Carbon;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,45 +17,45 @@ class DailyNewsController extends Controller
         $debugMode = config('app.debug', false);
         $news = $this->getUnreadNews($user, $debugMode);
         $gameData = $this->getGameData($user, $debugMode);
-        
+
         return Inertia::render('Game/Index', [
             'gameData' => $gameData,
             'dailyNews' => $news,
             'user' => $user,
             'debugMode' => $debugMode,
-            'showNewsModal' => !empty($news),
+            'showNewsModal' => ! empty($news),
         ]);
     }
-    
+
     public function markAsRead(Request $request): \Inertia\Response
     {
         $user = User::first();
         $newsId = $request->input('news_id');
         $debugMode = config('app.debug', false);
-        
+
         $news = DailyNews::find($newsId);
         $gameData = $this->getGameData($user, $debugMode);
-        
-        if (!$news) {
+
+        if (! $news) {
             return Inertia::render('Game/Index', [
                 'gameData' => $gameData,
                 'user' => $user,
                 'debugMode' => $debugMode,
             ])->with('error', 'Το νέο δεν βρέθηκε!');
         }
-        
+
         $user->dailyNewsReads()->syncWithoutDetaching([$news->id => ['read_at' => now()]]);
-        
+
         return Inertia::render('Game/Index', [
             'gameData' => $gameData,
             'user' => $user,
             'debugMode' => $debugMode,
         ]);
     }
-    
+
     private function getUnreadNews(User $user, bool $debugMode = false): ?array
     {
-        if (!$debugMode) {
+        if (! $debugMode) {
             $hasReadToday = $user->dailyNewsReads()
                 ->whereDate('read_at', now()->toDateString())
                 ->exists();
@@ -75,11 +74,11 @@ class DailyNewsController extends Controller
             ->where('is_active', true)
             ->orderBy('created_at', 'asc')
             ->first();
-        
-        if (!$news) {
+
+        if (! $news) {
             return null;
         }
-        
+
         return [
             'id' => $news->id,
             'title' => $news->title,
@@ -87,18 +86,18 @@ class DailyNewsController extends Controller
             'created_at' => $news->created_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     private function getGameData(User $user, bool $debugMode = false): array
     {
         $questions = Question::orderBy('day_number')->get();
         $progress = GameProgress::where('user_id', $user->id)->get()->keyBy('day_number');
-        
+
         $gameData = [];
-        
+
         foreach ($questions as $question) {
             $dayNumber = $question->day_number;
             $userProgress = $progress->get($dayNumber);
-            
+
             $gameData[] = [
                 'day_number' => $dayNumber,
                 'question' => $question->question,
@@ -119,16 +118,16 @@ class DailyNewsController extends Controller
                 'can_unlock' => $debugMode || $this->canUnlock($dayNumber, $progress),
             ];
         }
-        
+
         return $gameData;
     }
-    
+
     private function canUnlock(int $dayNumber, $progress): bool
     {
         if ($dayNumber === 1) {
             return true;
         }
-        
+
         return $progress->has($dayNumber - 1);
     }
 }

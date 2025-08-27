@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
-use App\Models\GameProgress;
-use App\Models\User;
-use App\Http\Requests\DayNumberRequest;
 use App\Http\Requests\AnswerQuestionRequest;
+use App\Http\Requests\DayNumberRequest;
 use App\Http\Requests\FoundAnswerRequest;
+use App\Models\GameProgress;
+use App\Models\Question;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +34,9 @@ class GameController extends Controller
         $dayNumber = $request->validated()['day_number'];
         $debugMode = config('app.debug', false);
 
-        if (!$debugMode && !$this->canUnlockDay($user, $dayNumber)) {
+        if (! $debugMode && ! $this->canUnlockDay($user, $dayNumber)) {
             $gameData = $this->getGameData($user, $debugMode);
+
             return Inertia::render('Game/Index', [
                 'gameData' => $gameData,
                 'user' => $user,
@@ -77,8 +78,9 @@ class GameController extends Controller
             ->where('day_number', $dayNumber)
             ->first();
 
-        if (!$progress || !$question) {
+        if (! $progress || ! $question) {
             $gameData = $this->getGameData($user, $debugMode);
+
             return Inertia::render('Game/Index', [
                 'gameData' => $gameData,
                 'user' => $user,
@@ -119,7 +121,7 @@ class GameController extends Controller
             ->where('day_number', $dayNumber)
             ->first();
 
-        if (!$progress) {
+        if (! $progress) {
             $progress = GameProgress::create([
                 'user_id' => $user->id,
                 'day_number' => $dayNumber,
@@ -160,8 +162,9 @@ class GameController extends Controller
             ->where('day_number', $dayNumber)
             ->first();
 
-        if (!$question) {
+        if (! $question) {
             $gameData = $this->getGameData($user, $debugMode);
+
             return Inertia::render('Game/Index', [
                 'gameData' => $gameData,
                 'user' => $user,
@@ -169,7 +172,7 @@ class GameController extends Controller
             ])->with('error', 'Δεν βρέθηκε η ερώτηση!');
         }
 
-        if (!$progress) {
+        if (! $progress) {
             $progress = GameProgress::create([
                 'user_id' => $user->id,
                 'day_number' => $dayNumber,
@@ -258,11 +261,11 @@ class GameController extends Controller
 
             if ($question) {
                 $canUnlock = false;
-                if (!$dayProgress) {
+                if (! $dayProgress) {
                     if ($debugMode) {
                         $canUnlock = true;
                     } else {
-                        $canUnlock = !$hasUnlockedToday;
+                        $canUnlock = ! $hasUnlockedToday;
                     }
                 }
 
@@ -329,6 +332,6 @@ class GameController extends Controller
             ->whereDate('unlocked_at', Carbon::today())
             ->exists();
 
-        return !$alreadyUnlockedToday;
+        return ! $alreadyUnlockedToday;
     }
 }
