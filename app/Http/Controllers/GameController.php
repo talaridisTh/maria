@@ -251,23 +251,18 @@ class GameController extends Controller
         $startDate = Carbon::parse('2025-08-27');
         $maxDays = 30;
 
-        $eligibleIndexes = [];
         for ($day = 1; $day <= $maxDays; $day++) {
             $question = $questionsByDay->get($day);
             $dayProgress = $progress->get($day);
+            $unlockDateObj = $startDate->copy()->addDays($day - 1);
 
             if ($question) {
                 $canUnlock = false;
                 if (!$dayProgress) {
                     if ($debugMode) {
                         $canUnlock = true;
-                    } elseif (!$hasUnlockedToday) {
-                        $canUnlock = (bool) random_int(0, 1);
-                        if ($canUnlock) {
-                            $eligibleIndexes[] = $day;
-                        } else {
-                            $eligibleIndexes[] = $day; // Track eligible to ensure at least one later
-                        }
+                    } else {
+                        $canUnlock = !$hasUnlockedToday;
                     }
                 }
 
@@ -284,7 +279,7 @@ class GameController extends Controller
                     'is_read' => $dayProgress ? $dayProgress->is_read : false,
                     'can_unlock' => $canUnlock,
                     'unlocked_at' => $dayProgress ? $dayProgress->unlocked_at : null,
-                    'unlock_date' => $startDate->copy()->addDays($day - 1)->format('Y-m-d'),
+                    'unlock_date' => $unlockDateObj->format('Y-m-d'),
                     'selected_answer' => $dayProgress ? $dayProgress->selected_answer : null,
                     'answered_correctly' => $dayProgress ? $dayProgress->answered_correctly : false,
                     'coins_earned' => $dayProgress ? $dayProgress->coins_earned : 0,
@@ -304,7 +299,7 @@ class GameController extends Controller
                     'is_read' => false,
                     'can_unlock' => false,
                     'unlocked_at' => null,
-                    'unlock_date' => $startDate->copy()->addDays($day - 1)->format('Y-m-d'),
+                    'unlock_date' => $unlockDateObj->format('Y-m-d'),
                     'selected_answer' => null,
                     'answered_correctly' => false,
                     'coins_earned' => 0,
@@ -313,34 +308,11 @@ class GameController extends Controller
             }
         }
 
-        if (!$debugMode && !$hasUnlockedToday) {
-            $hasAnyAvailable = collect($gameData)->contains(function ($d) {
-                return $d['can_unlock'] === true;
-            });
-            if (!$hasAnyAvailable) {
-                $candidates = array_filter($gameData, function ($d) {
-                    return $d['type'] !== 'message' && $d['is_unlocked'] === false;
-                });
-                if (!empty($candidates)) {
-                    $randomKey = array_rand($candidates);
-                    $dayToOpen = $candidates[$randomKey]['day_number'];
-                    foreach ($gameData as &$d) {
-                        if ($d['day_number'] === $dayToOpen) {
-                            $d['can_unlock'] = true;
-                            break;
-                        }
-                    }
-                    unset($d);
-                }
-            }
-        }
-
         return $gameData;
     }
 
     private function canUnlockDay(User $user, int $dayNumber): bool
     {
-        $today = Carbon::today();
         $existingForDay = GameProgress::where('user_id', $user->id)
             ->where('day_number', $dayNumber)
             ->exists();
@@ -348,8 +320,13 @@ class GameController extends Controller
             return false;
         }
 
+        $debugMode = config('app.debug', false);
+        if ($debugMode) {
+            return true;
+        }
+
         $alreadyUnlockedToday = GameProgress::where('user_id', $user->id)
-            ->whereDate('unlocked_at', $today)
+            ->whereDate('unlocked_at', Carbon::today())
             ->exists();
 
         return !$alreadyUnlockedToday;

@@ -168,7 +168,7 @@ export default function GameIndex({ gameData, user, debugMode, selectedQuestion:
       {dailyNews && (
         <DailyNewsModal
           isOpen={showNewsModal}
-          onClose={() => setShowNewsModal(false)}
+          onClose={() => router.visit('/')}
           news={dailyNews}
         />
       )}
