@@ -251,12 +251,25 @@ class GameController extends Controller
         $startDate = Carbon::parse('2025-08-27');
         $maxDays = 30;
 
+        $eligibleIndexes = [];
         for ($day = 1; $day <= $maxDays; $day++) {
             $question = $questionsByDay->get($day);
             $dayProgress = $progress->get($day);
 
             if ($question) {
-                $canUnlock = !$dayProgress && (!$hasUnlockedToday || $debugMode);
+                $canUnlock = false;
+                if (!$dayProgress) {
+                    if ($debugMode) {
+                        $canUnlock = true;
+                    } elseif (!$hasUnlockedToday) {
+                        $canUnlock = (bool) random_int(0, 1);
+                        if ($canUnlock) {
+                            $eligibleIndexes[] = $day;
+                        } else {
+                            $eligibleIndexes[] = $day; // Track eligible to ensure at least one later
+                        }
+                    }
+                }
 
                 $gameData[] = [
                     'day_number' => $day,
@@ -297,6 +310,28 @@ class GameController extends Controller
                     'coins_earned' => 0,
                     'answer_revealed' => false,
                 ];
+            }
+        }
+
+        if (!$debugMode && !$hasUnlockedToday) {
+            $hasAnyAvailable = collect($gameData)->contains(function ($d) {
+                return $d['can_unlock'] === true;
+            });
+            if (!$hasAnyAvailable) {
+                $candidates = array_filter($gameData, function ($d) {
+                    return $d['type'] !== 'message' && $d['is_unlocked'] === false;
+                });
+                if (!empty($candidates)) {
+                    $randomKey = array_rand($candidates);
+                    $dayToOpen = $candidates[$randomKey]['day_number'];
+                    foreach ($gameData as &$d) {
+                        if ($d['day_number'] === $dayToOpen) {
+                            $d['can_unlock'] = true;
+                            break;
+                        }
+                    }
+                    unset($d);
+                }
             }
         }
 
