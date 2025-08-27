@@ -20,7 +20,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Πού πήγαμε στο δεύτερο μας ταξίδι;',
                 'content' => '✈️',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -29,7 +29,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Πού πήγαμε στην Ελλάδα στο πρώτο ταξίδι μας;',
                 'content' => '🇬🇷',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -38,7 +38,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποια ταινία είδαμε στο πρώτο μας ραντεβού;',
                 'content' => '🎬',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -47,7 +47,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που σου πήρα;',
                 'content' => '🎁',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -56,7 +56,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποιο ήταν το πρώτο δώρο που μου πήρες;',
                 'content' => '💝',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -92,7 +92,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποιο είναι το αγαπημένο μου ποτό;',
                 'content' => '🥂',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -101,7 +101,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποια είναι η ταινία που βλέπουμε ξανά και ξανά;',
                 'content' => '🎞️',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
@@ -110,7 +110,7 @@ class QuestionSeeder extends Seeder
             [
                 'question' => 'Ποιο είναι το μέρος που έχουμε πει ότι πάντα θέλουμε να ξαναπάμε;',
                 'content' => '✨',
-                'type' => 'text',
+                'type' => 'message',
                 'options' => null,
                 'correct_answer' => null,
                 'extra_text' => null,
